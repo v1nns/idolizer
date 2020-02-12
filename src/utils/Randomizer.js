@@ -1,4 +1,5 @@
 function importAll(r) {
+  console.log('keys', r.keys());
   return r.keys().map(r);
 }
 
