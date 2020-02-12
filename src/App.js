@@ -1,16 +1,14 @@
-import React from 'react';
-import smile from './images/smile.png';
-import './App.css';
+import React from "react";
+import "./App.css";
+
+import Idolizer from "./components/Idolizer";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={smile} className="App-logo" alt="logo" />
-        <p>
-          Zézinho
-        </p>
-      </header>
+      {/* <header className="App-header">
+      </header> */}
+      <Idolizer />
     </div>
   );
 }
