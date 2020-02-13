@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import Fab from "@material-ui/core/Fab";
 
-import FullscreenIcon from "@material-ui/icons/Fullscreen"
-import FullscreenExitIcon from "@material-ui/icons/FullscreenExit"
+import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
+import ShuffleIcon from "@material-ui/icons/Shuffle";
 
 import { getIdol } from "../utils/Randomizer";
 
@@ -16,16 +17,18 @@ const container = {
   maxHeight: "100vh",
   overflow: "hidden",
   position: "relative"
-}
+};
 
 const image = {
   border: "1px solid black",
-  marginTop: 200
+  height: "45vh",
+  // width: "45vh",
+  marginTop: "20vh"
 };
 
 const imageFullscreen = {
   height: "100%",
-  width: "100%",
+  width: "100%"
 };
 
 const name = {
@@ -34,15 +37,27 @@ const name = {
 
 const fabFullscreen = {
   position: "absolute",
-  bottom: "12px",
+  bottom: "16px",
   right: "16px",
-  backgroundColor: "#AAA",
+  backgroundColor: "#BBB",
   color: "white",
   fontSize: "16px",
   padding: "12px 24px",
   border: "none",
-  cursor: "pointer",
-}
+  cursor: "pointer"
+};
+
+const fabShuffle = {
+  position: "absolute",
+  bottom: "16px",
+  right: "80px",
+  backgroundColor: "#BBB",
+  color: "white",
+  fontSize: "16px",
+  padding: "12px 24px",
+  border: "none",
+  cursor: "pointer"
+};
 
 /******************************************************************************/
 
@@ -50,29 +65,47 @@ const fabFullscreen = {
 export default class Editor extends Component {
   constructor(props) {
     super(props);
-    this.state = { idol: "", fullscreen: false };
+    this.state = { idol: getIdol(), fullscreen: false };
 
     // Bind functions
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickFullscreen = this.handleClickFullscreen.bind(this);
+    this.handleClickShuffle = this.handleClickShuffle.bind(this);
   }
 
-  handleClick() {
-    this.setState({ fullscreen: !this.state.fullscreen })
+  /* Button callbacks */
+  handleClickFullscreen() {
+    this.setState({ fullscreen: !this.state.fullscreen });
+  }
+
+  handleClickShuffle() {
+    this.setState({ idol: getIdol() });
   }
 
   render() {
-    const idol = getIdol();
+    const idol = this.state.idol;
     const imageStyle = this.state.fullscreen ? imageFullscreen : image;
     return (
       <div style={container}>
-        <img src={idol} alt="idol" style={imageStyle} />
+        <img src={idol.image} alt="idol" style={imageStyle} />
 
         <Typography variant="h6" color="inherit" style={name}>
-          Zezinho
+          {idol.name}
         </Typography>
 
-        <Fab color="primary" style={fabFullscreen} onClick={this.handleClick}>
-          { this.state.fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        <Fab
+          color="primary"
+          style={fabShuffle}
+          onClick={this.handleClickShuffle}
+        >
+          <ShuffleIcon />
+        </Fab>
+
+        <Fab
+          color="primary"
+          style={fabFullscreen}
+          onClick={this.handleClickFullscreen}
+        >
+          {this.state.fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
         </Fab>
       </div>
     );
