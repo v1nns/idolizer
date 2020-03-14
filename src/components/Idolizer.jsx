@@ -66,6 +66,7 @@ export default class Editor extends Component {
   constructor(props) {
     super(props);
     this.state = { idol: getIdol(), fullscreen: false };
+    console.log("Starting the editor");
 
     // Bind functions
     this.handleClickFullscreen = this.handleClickFullscreen.bind(this);
